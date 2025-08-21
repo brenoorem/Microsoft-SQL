@@ -51,3 +51,5 @@ insert into Donos (Nome, Idade, FKidModelo, FKidVeiculo) values ('Capela', '19',
 drop table donos
 drop table veiculo
 drop table modelo
+
+-- Isso é uma linha de teste!
