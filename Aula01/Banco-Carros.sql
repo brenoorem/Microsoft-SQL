@@ -3,7 +3,7 @@
 CREATE TABLE Modelo
 (
     ID_Modelo int not null identity,
-    Nome varchar(50) not null,
+    Modelo varchar(50) not null,
     Marca varchar(100) not null,
     constraint PK_Modelo primary key (ID_Modelo)
 )
@@ -24,18 +24,15 @@ create table Donos
     CONSTRAINT PK_Dono PRIMARY KEY (ID_Dono),
     Nome varchar(200) not null,
     Idade int not null,
-    Placa varchar(7),
-    Modelo varchar(50),
-    Marca varchar(200),
 
     FK_Modelo int references Modelo(ID_Modelo),
     FK_Veiculo int references Veiculo(ID_Veiculo)
 )
 
-insert into Modelo (Nome, Marca) values ('Polo', 'Volkswagen')
-insert into Modelo (Nome, Marca) values ('Celta', 'Chevrolet')
-insert into Modelo (Nome, Marca) values ('Cronos', 'Fiat')
-insert into Modelo (Nome, Marca) values ('Cavalo', 'Natureza')
+insert into Modelo (Modelo, Marca) values ('Polo', 'Volkswagen')
+insert into Modelo (Modelo, Marca) values ('Celta', 'Chevrolet')
+insert into Modelo (Modelo, Marca) values ('Cronos', 'Fiat')
+insert into Modelo (Modelo, Marca) values ('Cavalo', 'Natureza')
 
 insert into Veiculo (Placa, Cor, Ano, Preco) values ('FMV7E54', 'Cinza', 2024, 80000.00)
 insert into Veiculo (Placa, Cor, Ano, Preco) values ('ABC1D23', 'Cinza', 2005, 15000.00)
@@ -44,15 +41,16 @@ insert into Veiculo (Placa, Cor, Ano, Preco) values ('ABC1D23', 'Verde', 2015, 2
 insert into Veiculo (Placa, Cor, Ano, Preco) values ('ABC1D23', 'Branco', 2022, 60000.00)
 insert into Veiculo (Placa, Cor, Ano, Preco) values ('ABC1D23', 'Marrom', 1995, 200.00)
 
-insert into Donos (Nome, Idade) values ('Breno', '19')
-insert into Donos (Nome, Idade) values ('Fabiano', '19')
-insert into Donos (Nome, Idade) values ('Melps', '19')
-insert into Donos (Nome, Idade) values ('Ana', '20')
-insert into Donos (Nome, Idade) values ('Amanda', '20')
-insert into Donos (Nome, Idade) values ('Capela', '19')
+insert into Donos (Nome, Idade, FK_Modelo, FK_Veiculo) values ('Breno', '19', 1, 1)
+insert into Donos (Nome, Idade, FK_Modelo, FK_Veiculo) values ('Fabiano', '19', 2, 2)
+insert into Donos (Nome, Idade, FK_Modelo, FK_Veiculo) values ('Melps', '19', 3, 5)
+insert into Donos (Nome, Idade, FK_Modelo, FK_Veiculo) values ('Ana', '20', 2, 4)
+insert into Donos (Nome, Idade, FK_Modelo, FK_Veiculo) values ('Amanda', '20', 2, 3)
+insert into Donos (Nome, Idade, FK_Modelo, FK_Veiculo) values ('Capela', '19', 4, 6)
 
-drop table donos
-drop table veiculo
-drop table modelo
+update Veiculo set Placa = 'IAH7782' where placa = 'ABC1D23'
 
-select * from veiculo
+select D.Nome, D.Idade, D.FK_Modelo, M.Modelo, M.Marca, V.Placa, V.Cor, V.Ano, V.Preco
+from Modelo M
+join Donos D on M.ID_Modelo = D.FK_Modelo
+join Veiculo V on V.ID_Veiculo = D.FK_Veiculo
