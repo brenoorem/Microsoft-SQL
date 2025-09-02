@@ -1,5 +1,7 @@
 --CREATE database Carros;
 
+USE Carros
+
 CREATE TABLE Modelo
 (
     ID_Modelo int not null identity,
@@ -50,7 +52,8 @@ insert into Donos (Nome, Idade, FK_Modelo, FK_Veiculo) values ('Capela', '19', 4
 
 update Veiculo set Placa = 'IAH7782' where placa = 'ABC1D23'
 
-select D.Nome, D.Idade, D.FK_Modelo, M.Modelo, M.Marca, V.Placa, V.Cor, V.Ano, V.Preco
+select D.Nome, D.Idade, M.Modelo, M.Marca, V.Placa, V.Cor, V.Ano, V.Preco
 from Modelo M
 join Donos D on M.ID_Modelo = D.FK_Modelo
 join Veiculo V on V.ID_Veiculo = D.FK_Veiculo
+order by D.Idade
